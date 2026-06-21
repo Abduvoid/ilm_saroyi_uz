@@ -472,10 +472,10 @@ export default function App() {
   ];
 
   const teachersData = [
-    { name: "Xusayinova Iroda", role: "Logoped Ustoz", experience: "7+", image: "/images/logoped_ustoz.png" },
-    { name: "Jamolova Muyassar", role: "Mental Arifmetika Ustoz", experience: "5+", image: "/images/arifmetika_ustoz.jpg" },
-    { name: "Muhiddinova Feruza", role: "Maktabga tayyorlov", experience: "25+", image: "/images/feruza_teacher.jpg" },
-    { name: "Kozimxonova Muhlisa", role: "Ingliz tili va Rus tili Ustoz", experience: "6+", image: "/images/ingliz_ustoz.jpg" },
+    { name: "Xusayinova Iroda", role: "Logoped Ustoz", experience: "7+", image: "/public/images/logoped_ustoz.png" },
+    { name: "Jamolova Muyassar", role: "Mental Arifmetika Ustoz", experience: "5+", image: "/public/images/arifmetika_ustoz.jpg" },
+    { name: "Muhiddinova Feruza", role: "Maktabga tayyorlov", experience: "25+", image: "/public/images/feruza_teacher.jpg" },
+    { name: "Kozimxonova Muhlisa", role: "Ingliz tili va Rus tili Ustoz", experience: "6+", image: "/public/images/ingliz_ustoz.jpg" },
   ];
 
   const founderData = {
