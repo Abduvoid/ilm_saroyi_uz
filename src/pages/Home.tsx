@@ -429,7 +429,7 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
           <div className="grid  lg:grid-cols-3 gap-3">
             {[
               { img: "/images/image2.jpg", title: "O'quv Jarayoni" },
-              { img: "/imagesimage3.jpg", title: "Ingliz Tili Xonasi" },
+              { img: "/images/image3.jpg", title: "Ingliz Tili Xonasi" },
               { img: "/images/image4.jpg", title: "Tabiy Muhit" },
               { img: "/images/image.jpg", title: "Bilim maskani" },
               { img: "/images/image5.jpg", title: "Adminstartor Joyi" },
