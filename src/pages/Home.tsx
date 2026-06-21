@@ -428,12 +428,12 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
 
           <div className="grid  lg:grid-cols-3 gap-3">
             {[
-              { img: "public/oquv_jarayon/image2.jpg", title: "O'quv Jarayoni" },
-              { img: "public/oquv_jarayon/image3.jpg", title: "Ingliz Tili Xonasi" },
-              { img: "public/oquv_jarayon/image4.jpg", title: "Tabiy Muhit" },
-              { img: "public/oquv_jarayon/image.jpg", title: "Bilim maskani" },
-              { img: "public/oquv_jarayon/image5.jpg", title: "Adminstartor Joyi" },
-              { img: "public/oquv_jarayon/image6.jpg", title: "IT kompyuterlarimiz" }
+              { img: "public/image2.jpg", title: "O'quv Jarayoni" },
+              { img: "public/image3.jpg", title: "Ingliz Tili Xonasi" },
+              { img: "public/image4.jpg", title: "Tabiy Muhit" },
+              { img: "public/image.jpg", title: "Bilim maskani" },
+              { img: "public/image5.jpg", title: "Adminstartor Joyi" },
+              { img: "public/image6.jpg", title: "IT kompyuterlarimiz" }
             ].map((item, i) => (
               <motion.div
                 key={i}
