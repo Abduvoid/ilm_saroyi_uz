@@ -10,7 +10,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -53,16 +53,21 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                 CONTACT
               </span>
             </div>
-            <h1 className="text-4xl sm:text-7xl md:text-9xl font-heading font-black text-slate-900 mb-10 leading-[0.8] tracking-tighter uppercase">
-              BIZ BILAN <br /> 
-              <span className="text-[#C5A037] italic">BOG'LANING</span>
-            </h1>
+            <h2 className="text-[90px] sm:text-[80px] lg:text-[120px] font-black uppercase leading-[0.9] tracking-[-0.04em]">
+              <span className="block text-slate-900">
+                {t.contactHeroTop}
+              </span>
+
+              <span className="block text-[#C5A037] italic">
+                {t.contactHeroBottom}
+              </span>
+            </h2>
             <p className="text-xl sm:text-2xl text-slate-500 max-w-2xl leading-relaxed italic border-l-8 border-slate-100 pl-10">
-              {lang === 'uz' 
-                ? "Sizning savollaringiz va takliflaringiz biz uchun juda muhim. Keling, birgalikda eng yaxshi natijaga erishamiz." 
-                : lang === 'ru' 
-                ? "Ваши вопросы и предложения очень важны для нас. Давайте вместе достигать лучших результатов."
-                : "Your questions and suggestions are important to us. Let's achieve the best results together."}
+              {lang === 'uz'
+                ? "Sizning savollaringiz va takliflaringiz biz uchun juda muhim. Keling, birgalikda eng yaxshi natijaga erishamiz."
+                : lang === 'ru'
+                  ? "Ваши вопросы и предложения очень важны для нас. Давайте вместе достигать лучших результатов."
+                  : "Your questions and suggestions are important to us. Let's achieve the best results together."}
             </p>
           </motion.div>
 
@@ -73,11 +78,11 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
             className="hidden lg:block relative"
           >
             <div className="w-56 h-56 sm:w-80 sm:h-80 rounded-[3rem] sm:rounded-[4rem] bg-[#C5A037] rotate-12 transition-transform hover:rotate-0 duration-700 shadow-2xl flex items-center justify-center overflow-hidden">
-               <PhoneCall className="w-20 h-20 sm:w-40 sm:h-40 text-white/20 absolute -bottom-5 -right-5 sm:-bottom-10 sm:-right-10" />
-               <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-white shadow-xl flex items-center justify-center relative z-10">
-                 <Send className={`w-8 h-8 sm:w-12 sm:h-12 text-blue-600 transition-transform duration-700 ${formStatus === 'success' ? 'scale-0' : 'scale-100'}`} />
-                 <CheckCircle2 className={`w-8 h-8 sm:w-12 sm:h-12 text-green-600 absolute transition-transform duration-700 ${formStatus === 'success' ? 'scale-100' : 'scale-0'}`} />
-               </div>
+              <PhoneCall className="w-20 h-20 sm:w-40 sm:h-40 text-white/20 absolute -bottom-5 -right-5 sm:-bottom-10 sm:-right-10" />
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-white shadow-xl flex items-center justify-center relative z-10">
+                <Send className={`w-8 h-8 sm:w-12 sm:h-12 text-blue-600 transition-transform duration-700 ${formStatus === 'success' ? 'scale-0' : 'scale-100'}`} />
+                <CheckCircle2 className={`w-8 h-8 sm:w-12 sm:h-12 text-green-600 absolute transition-transform duration-700 ${formStatus === 'success' ? 'scale-100' : 'scale-0'}`} />
+              </div>
             </div>
             <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-blue-600/10 blur-3xl -z-10" />
           </motion.div>
@@ -92,7 +97,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
               { icon: <Globe />, label: "Instagram", val: "@ilm.saroyi_markazi", color: "bg-gradient-to-tr from-orange-500 to-purple-600", link: "https://instagram.com/ilm.saroyi_markazi" },
               { icon: <MapPin />, label: lang === 'uz' ? 'Manzil' : 'Адрес', val: "Shifobaxsh suvlar 177", color: "bg-emerald-600", link: "https://maps.google.com/?q=Shifobaxsh+suvlar+177" }
             ].map((item, idx) => (
-              <motion.a 
+              <motion.a
                 key={idx}
                 href={item.link}
                 target={item.link.startsWith('http') ? "_blank" : "_self"}
@@ -116,7 +121,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
 
           {/* Form Panel */}
           <div className="lg:col-span-7">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
@@ -144,8 +149,8 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                     <h3 className="text-4xl sm:text-5xl font-black mb-12 tracking-tighter uppercase leading-[0.8]">{t.contactInfoTitle}</h3>
                     <form className="space-y-10" onSubmit={handleSubmit}>
                       <div className="relative group text-left">
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           required
                           placeholder=" "
                           value={formData.name}
@@ -158,8 +163,8 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                       </div>
 
                       <div className="relative group text-left">
-                        <input 
-                          type="tel" 
+                        <input
+                          type="tel"
                           required
                           placeholder=" "
                           value={formData.phone}
@@ -172,7 +177,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                       </div>
 
                       <div className="relative group text-left">
-                        <textarea 
+                        <textarea
                           rows={1}
                           required
                           placeholder=" "
@@ -189,14 +194,14 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                         </label>
                       </div>
 
-                      <Button 
+                      <Button
                         type="submit"
                         disabled={formStatus === 'sending'}
                         className="w-full h-16 sm:h-24 bg-white hover:bg-[#C5A037] text-slate-900 hover:text-white rounded-[1.2rem] sm:rounded-[2rem] font-black py-4 sm:py-5 text-lg sm:text-xl transition-all duration-500 shadow-2xl flex items-center justify-center gap-3 sm:gap-5 group/btn uppercase tracking-wider sm:tracking-[0.2em] relative overflow-hidden active:scale-95"
                       >
                         {formStatus === 'sending' ? (
                           <div className="flex items-center gap-3">
-                            <motion.div 
+                            <motion.div
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                               className="w-5 h-5 sm:w-6 sm:h-6 border-4 border-slate-900 border-t-transparent rounded-full"
@@ -224,34 +229,34 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
 
         {/* Map Section */}
         <motion.div
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: false }}
-  transition={{ duration: 1.2 }}
-  className="mt-32 md:mt-56 rounded-[4rem] overflow-hidden shadow-2xl border-[12px] border-white h-[400px] sm:h-[600px] relative group"
->
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d697.9528954981615!2d69.11404860594962!3d41.3598972841895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2s!4v1776437227142!5m2!1sen!2s" 
-    width="100%" 
-    height="100%" 
-    style={{ border: 0 }} 
-    allowFullScreen 
-    loading="lazy" 
-    referrerPolicy="no-referrer-when-downgrade"
-    className="grayscale-[40%] group-hover:grayscale-0 transition-all duration-1000"
-  ></iframe>
-  <div className="absolute top-4 left-4 sm:top-10 sm:left-10 py-2 sm:py-3 px-4 sm:px-8 bg-white/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl z-20 border border-white/50 pointer-events-none">
-    <div className="flex items-center gap-2 sm:gap-4">
-       <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white">
-         <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-       </div>
-       <div>
-         <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">G-Map</p>
-         <p className="text-slate-900 font-black uppercase text-xs sm:text-sm">Bizning joylashuvimiz</p>
-       </div>
-    </div>
-  </div>
-</motion.div>
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1.2 }}
+          className="mt-32 md:mt-56 rounded-[4rem] overflow-hidden shadow-2xl border-[12px] border-white h-[400px] sm:h-[600px] relative group"
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d697.9528954981615!2d69.11404860594962!3d41.3598972841895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2s!4v1776437227142!5m2!1sen!2s"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="grayscale-[40%] group-hover:grayscale-0 transition-all duration-1000"
+          ></iframe>
+          <div className="absolute top-4 left-4 sm:top-10 sm:left-10 py-2 sm:py-3 px-4 sm:px-8 bg-white/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl z-20 border border-white/50 pointer-events-none">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div>
+                <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">G-Map</p>
+                <p className="text-slate-900 font-black uppercase text-xs sm:text-sm">Bizning joylashuvimiz</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

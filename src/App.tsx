@@ -6,16 +6,16 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  BookOpen, 
-  Code, 
-  Globe, 
-  Languages, 
-  PhoneCall, 
-  Send, 
-  MapPin, 
-  Menu, 
-  X, 
+import {
+  BookOpen,
+  Code,
+  Globe,
+  Languages,
+  PhoneCall,
+  Send,
+  MapPin,
+  Menu,
+  X,
   GraduationCap,
   Instagram,
   MessageCircle,
@@ -50,8 +50,8 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
         {/* ILM */}
         <div className="flex items-center">
           <div className="relative">
-            <GraduationCap 
-              className="w-[0.6em] h-[0.6em] absolute -top-[0.45em] left-1/2 -translate-x-[60%] rotate-[-5deg] z-10" 
+            <GraduationCap
+              className="w-[0.6em] h-[0.6em] absolute -top-[0.45em] left-1/2 -translate-x-[60%] rotate-[-5deg] z-10"
               style={{ color: goldColor }}
               fill="currentColor"
             />
@@ -59,7 +59,7 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
           </div>
           <span className={textColor}>LM</span>
         </div>
-        
+
         {/* SAROYI */}
         <div className="ml-[0.2em] flex items-center">
           <span className={textColor}>S</span>
@@ -69,8 +69,8 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
           <span className={textColor}>R</span>
           <div className="relative inline-flex items-center justify-center">
             <span className="opacity-0">O</span>
-            <Lightbulb 
-              className="w-[0.9em] h-[0.9em] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10" 
+            <Lightbulb
+              className="w-[0.9em] h-[0.9em] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
               style={{ color: goldColor }}
               fill="currentColor"
             />
@@ -81,11 +81,11 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
 
       {/* Gold Underline */}
       <div className="w-full h-[2px] sm:h-[3px] mt-0.5 overflow-hidden flex items-center justify-center">
-         <div className="w-full h-full relative">
-            <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="w-full h-full">
-              <path d="M 0 5 L 100 5" stroke={goldColor} strokeWidth="4" strokeLinecap="round" />
-            </svg>
-         </div>
+        <div className="w-full h-full relative">
+          <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="w-full h-full">
+            <path d="M 0 5 L 100 5" stroke={goldColor} strokeWidth="4" strokeLinecap="round" />
+          </svg>
+        </div>
       </div>
     </div>
   );
@@ -95,10 +95,16 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
 
 const translations = {
   uz: {
+    home: "Asosiy",
     about: "Biz haqimizda",
     courses: "Kurslar",
     contact: "Bog'lanish",
     heroTitle: "Ilm Saroyi",
+    heroMainTitle: "Farzandingizning",
+    contactHeroTop: "Biz bilan",
+    contactHeroBottom: "Bog'laning",
+    heroHighlight: "KELAJAGI",
+    heroEnd: "shu yerda boshlanadi",
     heroSubtitle: "Kelajagingizni biz bilan boshlang. Zamonaviy bilimlar markazi.",
     heroBtn: "Kurslarni ko'rish",
     aboutTitle: "Biz haqimizda",
@@ -140,10 +146,16 @@ const translations = {
     experience: "tajriba"
   },
   ru: {
+    home: "Главная",
     about: "О нас",
     courses: "Курсы",
     contact: "Контакты",
     heroTitle: "Ilm Saroyi",
+    contactHeroTop: "Свяжитесь с",
+    contactHeroBottom: "нами",
+    heroMainTitle: "Будущее вашего ребёнка",
+    heroHighlight: "НАЧИНАЕТСЯ",
+    heroEnd: "именно здесь",
     heroSubtitle: "Начните свое будущее с нами. Центр современных знаний.",
     heroBtn: "Посмотреть курсы",
     aboutTitle: "О нас",
@@ -185,12 +197,19 @@ const translations = {
     experience: "опыт"
   },
   en: {
+    home: "Home",
     about: "About Us",
     courses: "Courses",
     contact: "Contact",
     heroTitle: "Ilm Saroyi",
+    contactHeroTop: "Get in",
+    contactHeroBottom: "Touch",
+    heroMainTitle: "Your Child's",
+    heroHighlight: "FUTURE",
+    heroEnd: "starts here",
     heroSubtitle: "Start your future with us. Modern knowledge center.",
     heroBtn: "View Courses",
+    welcomeText: "Welcome to the world of comprehensive knowledge. Here, you can professionally learn any field you desire.",
     aboutTitle: "About Us",
     aboutHeading: "Your success is our goal",
     aboutText: "Ilm Saroyi is a modern educational institution preparing specialists of the future. We approach each student individually.",
@@ -235,6 +254,8 @@ const translations = {
 
 export default function App() {
   const [lang, setLang] = useState<'uz' | 'ru' | 'en'>('uz');
+  const [isLangOpen, setIsLangOpen] = useState(false);
+
   const t = translations[lang];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -252,18 +273,19 @@ export default function App() {
   }, [location.pathname]);
 
   const navItems = [
+    { name: t.home, href: "/" },
     { name: t.about, href: "/about" },
     { name: t.courses, href: "/courses" },
     { name: t.contact, href: "/contact" },
   ];
 
   const courseData = [
-    { 
+    {
       id: "ingliz-tili",
-      title: t.courseList[0].title, 
-      desc: t.courseList[0].desc, 
-      icon: <Languages />, 
-      color: "bg-blue-600", 
+      title: t.courseList[0].title,
+      desc: t.courseList[0].desc,
+      icon: <Languages />,
+      color: "bg-blue-600",
       image: "https://prep.uz/storage/posts/March2020/istockphoto-1047570732-612x6121.jpg",
       fullDesc: lang === 'uz' ? "Ingliz tili - bu global muloqot tili. Kursimizda siz nafaqat grammatikani, balki erkin so'zlashuvni ham o'rganasiz. General English va IELTS tayyorlov bosqichlari mavjud." : lang === 'ru' ? "Английский язык — это язык глобального общения. На нашем курсе вы выучите не только грамматику, но и свободную речь. Доступны этапы General English и подготовки к IELTS." : "English is the language of global communication. In our course, you will learn not only grammar but also free speech. General English and IELTS preparation stages are available.",
       curriculum: lang === 'uz' ? [
@@ -282,12 +304,12 @@ export default function App() {
         { month: 6, title: "Финальный этап", topics: ["Полный тест", "Сертификат", "Выпускной"] }
       ]
     },
-    { 
+    {
       id: "rus-tili",
-      title: t.courseList[1].title, 
-      desc: t.courseList[1].desc, 
-      icon: <Globe />, 
-      color: "bg-red-600", 
+      title: t.courseList[1].title,
+      desc: t.courseList[1].desc,
+      icon: <Globe />,
+      color: "bg-red-600",
       image: "https://terdpi.uz/uploads/resource/13/l_f115ef859b65b44f8a357757162c4069.jpg",
       fullDesc: lang === 'uz' ? "Rus tili darslarimizda siz muloqotga e'tibor berasiz. Bizning o'qituvchilarimiz sizga qisqa vaqt ichida ravon so'zlashuvni o'rgatishadi." : lang === 'ru' ? "На наших уроках русского языка вы сосредоточитесь на общении. Наши учителя научат вас бегло говорить за короткое время." : "In our Russian language lessons, you will focus on communication. Our teachers will teach you to speak fluently in a short time.",
       curriculum: lang === 'uz' ? [
@@ -300,12 +322,12 @@ export default function App() {
         { month: 3, title: "Грамматика", topics: ["Падежи", "Лицо и число", "Времена глагола"] }
       ]
     },
-    { 
+    {
       id: "arab-tili",
-      title: t.courseList[2].title, 
-      desc: t.courseList[2].desc, 
-      icon: <BookOpen />, 
-      color: "bg-emerald-600", 
+      title: t.courseList[2].title,
+      desc: t.courseList[2].desc,
+      icon: <BookOpen />,
+      color: "bg-emerald-600",
       image: "https://frankfurt.apollo.olxcdn.com/v1/files/ncveh71009co1-UZ/image",
       fullDesc: lang === 'uz' ? "Arab tili - Sharq madaniyati va islom ilmlari kalitidir. Bizda Muallimi Soniy va grammatika darslari olib boriladi." : lang === 'ru' ? "Арабский язык — ключ к восточной культуре и исламским наукам. У нас проводятся уроки Муаллими Сони и грамматики." : "Arabic is the key to Eastern culture and Islamic sciences. We have Muallimi Soni and grammar lessons.",
       curriculum: lang === 'uz' ? [
@@ -318,12 +340,12 @@ export default function App() {
         { month: 3, title: "Нахв и Сарф", topics: ["Грамматика", "Словообразование", "Расширение словаря"] }
       ]
     },
-    { 
+    {
       id: "matematika",
-      title: t.courseList[3].title, 
-      desc: t.courseList[3].desc, 
-      icon: <Calculator />, 
-      color: "bg-orange-500", 
+      title: t.courseList[3].title,
+      desc: t.courseList[3].desc,
+      icon: <Calculator />,
+      color: "bg-orange-500",
       image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
       fullDesc: lang === 'uz' ? "Matematika fanidan chuqurlashtirilgan darslar. Milliy va xalqaro imtihonlarga tayyorlov, mantiqiy misollar yechish." : lang === 'ru' ? "Углубленные уроки математики. Подготовка к национальным и международным экзаменам, решение логических примеров." : "In-depth mathematics lessons. Preparation for national and international exams, solving logical examples.",
       curriculum: lang === 'uz' ? [
@@ -336,12 +358,12 @@ export default function App() {
         { month: 3, title: "Логика", topics: ["Сложные задачи", "Методы быстрого решения", "Тесты"] }
       ]
     },
-    { 
+    {
       id: "mental-arifmetika",
-      title: t.courseList[4].title, 
-      desc: t.courseList[4].desc, 
-      icon: <Brain />, 
-      color: "bg-[#C5A037]", 
+      title: t.courseList[4].title,
+      desc: t.courseList[4].desc,
+      icon: <Brain />,
+      color: "bg-[#C5A037]",
       image: "https://coursetop.fra1.cdn.digitaloceanspaces.com/1694252241682-arifmet.jpg",
       fullDesc: lang === 'uz' ? "Bolalarning mantiqiy fikrlashini charxlaydi. Abakus yordamida tezkor hisoblash xotirani kuchaytiradi." : lang === 'ru' ? "Развивает логическое мышление детей. Быстрый счет с помощью абакуса укрепляет память." : "It sharpens children's logical thinking. Fast counting using an abacus strengthens memory.",
       curriculum: lang === 'uz' ? [
@@ -354,12 +376,12 @@ export default function App() {
         { month: 3, title: "Соревнование", topics: ["Сложные вычисления", "Точный результат", "Финал"] }
       ]
     },
-    { 
+    {
       id: "maktabga-tayyorlov",
-      title: t.courseList[5].title, 
-      desc: t.courseList[5].desc, 
-      icon: <Backpack />, 
-      color: "bg-indigo-600", 
+      title: t.courseList[5].title,
+      desc: t.courseList[5].desc,
+      icon: <Backpack />,
+      color: "bg-indigo-600",
       image: "https://marifat.uz/storage/posts/1770272756w1MAW6eviOr-rFbE8EfH215.jpg",
       fullDesc: lang === 'uz' ? "Bolalardagi yozish, o'qish va mantiqiy fikrlashni maktab yoshigacha shakllantiramiz. O'zbek tilidagi mukammal dastur." : lang === 'ru' ? "Формируем у детей навыки письма, чтения и логического мышления до школьного возраста. Идеальная программа на узбекском языке." : "We form children's writing, reading, and logical thinking skills before school age. Perfect program in Uzbek.",
       curriculum: lang === 'uz' ? [
@@ -372,12 +394,12 @@ export default function App() {
         { month: 3, title: "Окружающий мир", topics: ["Природа", "Социальный этикет", "Логические вопросы"] }
       ]
     },
-    { 
+    {
       id: "pochemuchka",
-      title: t.courseList[6].title, 
-      desc: t.courseList[6].desc, 
-      icon: <PenTool />, 
-      color: "bg-pink-500", 
+      title: t.courseList[6].title,
+      desc: t.courseList[6].desc,
+      icon: <PenTool />,
+      color: "bg-pink-500",
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfKkrGvNoTEaJE5-irhjnU4qJqgHJtrn-Dhg&s",
       fullDesc: lang === 'uz' ? "Kichik yoshga mo'ljallangan rus tili darslari. O'yinlar, qo'shiqlar va qiziqarli mashg'ulotlar orqali til o'rganish." : lang === 'ru' ? "Уроки русского языка для самых маленьких. Изучение языка через игры, песни и увлекательные занятия." : "Russian language lessons for the youngest. Language learning through games, songs, and fun activities.",
       curriculum: lang === 'uz' ? [
@@ -390,12 +412,12 @@ export default function App() {
         { month: 3, title: "Окружающий мир", topics: ["Природа", "Общение", "Финал"] }
       ]
     },
-    { 
+    {
       id: "it",
-      title: t.courseList[7].title, 
-      desc: t.courseList[7].desc, 
-      icon: <Code />, 
-      color: "bg-slate-900", 
+      title: t.courseList[7].title,
+      desc: t.courseList[7].desc,
+      icon: <Code />,
+      color: "bg-slate-900",
       image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
       fullDesc: lang === 'uz' ? "Dasturlash olamiga ilk qadam. Web-saytlar yaratish va mantiqiy algoritmlar bilan ishlashni o'rganasiz." : lang === 'ru' ? "Первый шаг в мир программирования. Вы научитесь создавать веб-сайты и работать с логическими алгоритмами." : "The first step into the world of programming. You will learn how to create websites and work with logical algorithms.",
       curriculum: lang === 'uz' ? [
@@ -408,12 +430,12 @@ export default function App() {
         { month: 3, title: "Проект", topics: ["Лендинг пейдж", "Хостинг", "Портфолио"] }
       ]
     },
-    { 
+    {
       id: "logoped",
-      title: t.courseList[8].title, 
-      desc: t.courseList[8].desc, 
-      icon: <MessageCircle />, 
-      color: "bg-cyan-500", 
+      title: t.courseList[8].title,
+      desc: t.courseList[8].desc,
+      icon: <MessageCircle />,
+      color: "bg-cyan-500",
       image: "https://aba-mehr.uz/wp-content/uploads/2025/10/8923408-_1_.webp",
       fullDesc: lang === 'uz' ? "Malkali logopedlar yordamida nutq nuqsonlarini bartaraf etish. Bolalar va kattalar uchun individual darslar." : lang === 'ru' ? "Устранение дефектов речи с помощью опытных логопедов. Индивидуальные занятия для детей и взрослых." : "Fixing speech defects with the help of experienced speech therapists. Individual lessons for children and adults.",
       curriculum: lang === 'uz' ? [
@@ -426,12 +448,12 @@ export default function App() {
         { month: 3, title: "Общение", topics: ["Подвижные уроки", "Свободная речь", "Контроль"] }
       ]
     },
-    { 
+    {
       id: "qol-mehnati",
-      title: t.courseList[9].title, 
-      desc: t.courseList[9].desc, 
-      icon: <Scissors />, 
-      color: "bg-purple-600", 
+      title: t.courseList[9].title,
+      desc: t.courseList[9].desc,
+      icon: <Scissors />,
+      color: "bg-purple-600",
       image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800",
       fullDesc: lang === 'uz' ? "Kreativ fikrlashni rivojlantirish. Qog'oz, bo'yoq va boshqa narsalar bilan san'at asarlari yaratish." : lang === 'ru' ? "Развитие креативного мышления. Создание произведений искусства из бумаги, красок и других материалов." : "Development of creative thinking. Creating works of art with paper, paint and other things.",
       curriculum: lang === 'uz' ? [
@@ -444,12 +466,12 @@ export default function App() {
         { month: 3, title: "Проект", topics: ["Большая композиция", "Выставка", "Подарки"] }
       ]
     },
-    { 
+    {
       id: "karving",
-      title: t.courseList[10].title, 
-      desc: t.courseList[10].desc, 
-      icon: <Palette />, 
-      color: "bg-green-600", 
+      title: t.courseList[10].title,
+      desc: t.courseList[10].desc,
+      icon: <Palette />,
+      color: "bg-green-600",
       image: "https://i.ytimg.com/vi/bxontcg1s1w/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBpFSJ4vGbXUY-iIvsz2dpQkxS1aA",
       fullDesc: lang === 'uz' ? "Dasturxon bezatish san'ati. Karving orqali oddiy mevalarga hayot bag'ishlang va go'zallik yarating." : lang === 'ru' ? "Искусство оформления стола. Оживите обычные фрукты и создайте красоту с помощью карвинга." : "The art of table decoration. Bring life to ordinary fruits and create beauty through carving.",
       curriculum: lang === 'uz' ? [
@@ -471,12 +493,52 @@ export default function App() {
     { text: t.points[3], color: "#8B5CF6" },
   ];
 
-  const teachersData = [
-    { name: "Xusayinova Iroda", role: "Logoped Ustoz", experience: "7+", image: "/images/logoped_ustoz.png" },
-    { name: "Jamolova Muyassar", role: "Mental Arifmetika Ustoz", experience: "5+", image: "/images/arifmetika_ustoz.jpg" },
-    { name: "Muhiddinova Feruza", role: "Maktabga tayyorlov", experience: "25+", image: "/images/feruza_teacher.jpg" },
-    { name: "Kozimxonova Muhlisa", role: "Ingliz tili va Rus tili Ustoz", experience: "6+", image: "/images/ingliz_ustoz.jpg" },
-  ];
+const teachersData = [
+  {
+    name: "Xusayinova Iroda",
+    role:
+      lang === "uz"
+        ? "Logoped Ustoz"
+        : lang === "ru"
+        ? "Логопед"
+        : "Speech Therapist",
+    experience: "7+",
+    image: "/images/logoped_ustoz.png",
+  },
+  {
+    name: "Jamolova Muyassar",
+    role:
+      lang === "uz"
+        ? "Mental Arifmetika Ustoz"
+        : lang === "ru"
+        ? "Преподаватель ментальной арифметики"
+        : "Mental Arithmetic Teacher",
+    experience: "5+",
+    image: "/images/arifmetika_ustoz.jpg",
+  },
+  {
+    name: "Muhiddinova Feruza",
+    role:
+      lang === "uz"
+        ? "Maktabga tayyorlov"
+        : lang === "ru"
+        ? "Подготовка к школе"
+        : "School Preparation Teacher",
+    experience: "25+",
+    image: "/images/feruza_teacher.jpg",
+  },
+  {
+    name: "Kozimxonova Muhlisa",
+    role:
+      lang === "uz"
+        ? "Ingliz tili va Rus tili Ustoz"
+        : lang === "ru"
+        ? "Преподаватель английского и русского языка"
+        : "English and Russian Language Teacher",
+    experience: "6+",
+    image: "/images/ingliz_ustoz.jpg",
+  },
+];
 
   const founderData = {
     name: "Muhiddinova Muhayyo",
@@ -506,21 +568,21 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none opacity-[0.035] z-0 overflow-hidden select-none">
         <div className="absolute inset-0 flex flex-wrap gap-40 p-10 justify-around rotate-[-12deg]">
           {Array.from({ length: 30 }).map((_, i) => (
-            <motion.div 
-              key={i} 
-              animate={{ 
+            <motion.div
+              key={i}
+              animate={{
                 y: [0, -20 * (i % 2 === 0 ? 1 : -1), 0],
                 rotate: [-12, -8, -12]
               }}
-              transition={{ 
-                duration: 10 + (i % 5), 
-                repeat: Infinity, 
-                ease: "easeInOut" 
+              transition={{
+                duration: 10 + (i % 5),
+                repeat: Infinity,
+                ease: "easeInOut"
               }}
               className="flex flex-col items-center"
             >
-               <GraduationCap className="w-32 h-32 mb-6" strokeWidth={1} />
-               <div className="font-heading font-black text-6xl tracking-tighter whitespace-nowrap">ILM SAROYI</div>
+              <GraduationCap className="w-32 h-32 mb-6" strokeWidth={1} />
+              <div className="font-heading font-black text-6xl tracking-tighter whitespace-nowrap">ILM SAROYI</div>
             </motion.div>
           ))}
         </div>
@@ -535,8 +597,8 @@ export default function App() {
 
           <div className="hidden md:flex flex-1 justify-center items-center gap-10">
             {navItems.map((item) => (
-              <button 
-                key={item.name} 
+              <button
+                key={item.name}
                 onClick={() => handleNavClick(item.href)}
                 className="text-base font-bold transition-all hover:scale-110 text-white hover:text-blue-300"
               >
@@ -546,20 +608,37 @@ export default function App() {
           </div>
 
           <div className="hidden md:flex items-center gap-6 ml-auto">
-            <div className={`flex p-1 rounded-full border transition-colors ${(scrolled || location.pathname !== '/') ? 'bg-slate-100 border-slate-200' : 'bg-white/10 border-white/20'}`}>
-              {(['uz', 'ru', 'en'] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  className={`px-3 py-1 rounded-full text-xs font-bold uppercase transition-all ${lang === l ? ((scrolled || location.pathname !== '/') ? 'bg-white text-blue-600 shadow-sm' : 'bg-white text-blue-600') : ((scrolled || location.pathname !== '/') ? 'text-slate-400 hover:text-slate-600' : 'text-white/60 hover:text-white')}`}
-                >
-                  {l}
-                </button>
-              ))}
+            <div className="relative">
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="flex items-center justify-between w-20 px-3 py-2 bg-white text-blue-600 rounded-lg font-bold uppercase"
+              >
+                {lang}
+                <span>{isLangOpen ? "▲" : "▼"}</span>
+              </button>
+
+              {isLangOpen && (
+                <div className="absolute top-full left-0 mt-1 w-20 bg-white rounded-lg shadow-lg overflow-y-auto max-h-24">
+                  {(['uz', 'ru', 'en'] as const)
+                    .filter((l) => l !== lang)
+                    .map((l) => (
+                      <button
+                        key={l}
+                        onClick={() => {
+                          setLang(l);
+                          setIsLangOpen(false);
+                        }}
+                        className="block w-full px-3 py-2 text-left uppercase "
+                      >
+                        {l}
+                      </button>
+                    ))}
+                </div>
+              )}
             </div>
-            <Button 
+            <Button
               onClick={() => handleNavClick('/contact')}
-              className={`rounded-full px-8 py-6 font-bold transition-all hover:scale-105 ${(scrolled || location.pathname !== '/') ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200' : 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30'}`}
+              className={`rounded-full px-8 py-6 font-bold transition-all hover:scale-105 ${(scrolled || location.pathname !== '/') ? 'bg-blue-600 hover:bg-blue-600 text-white shadow-lg shadow-blue-00' : 'bg-blue-600 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 '}`}
             >
               {t.contact}
             </Button>
@@ -596,7 +675,7 @@ export default function App() {
                     </button>
                   ))}
                 </div>
-                <Button 
+                <Button
                   onClick={() => handleNavClick('/contact')}
                   className="w-full bg-blue-600 text-white rounded-xl py-6 text-lg font-bold"
                 >
@@ -617,7 +696,7 @@ export default function App() {
       </Routes>
 
       {/* Footer */}
-      <motion.footer 
+      <motion.footer
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -642,6 +721,9 @@ export default function App() {
             <div>
               <h4 className="text-base font-bold mb-4">{t.contact}</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
+                <li className="hover:text-blue-400 transition-colors">
+                  <Link to="/">{t.home}</Link>
+                </li>
                 <li className="hover:text-blue-400 transition-colors">
                   <Link to="/about">{t.about}</Link>
                 </li>
@@ -688,10 +770,10 @@ export default function App() {
               </p>
               <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.1em]">
                 {lang === 'uz' ? 'Dizayn va tuzuvchi' : lang === 'ru' ? 'Дизайн и разработка' : 'Design and development'}: {' '}
-                <a 
-                  href="https://t.me/aexar_tm" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://t.me/aexar_tm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-blue-500 hover:text-blue-400 transition-colors"
                 >
                   @aexar_tm

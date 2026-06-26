@@ -14,12 +14,12 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
 
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <motion.img 
+          <motion.img
             initial={{ scale: 1.12 }}
             animate={{ scale: 1 }}
             transition={{ duration: 10 }}
             src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1920"
-            alt="Ilm Saroyi"x 
+            alt="Ilm Saroyi" x
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/20 to-black/85" />
@@ -54,9 +54,8 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
               variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}
               className="text-5xl sm:text-6xl md:text-7xl lg:text-[82px] font-black leading-[1.05] tracking-tighter text-white mb-6"
             >
-              Farzandingizning<br />
-              <span className="text-[#FCD34D] drop-shadow-xl">KELAJAGI</span> shu yerda<br />
-              boshlanadi
+              {t.heroMainTitle}<br />
+              <span className="text-[#FCD34D] drop-shadow-xl">{t.heroHighlight}</span> {t.heroEnd}<br />
             </motion.h1>
 
             {/* Button */}
@@ -67,7 +66,7 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
                 <Button className="relative overflow-hidden group bg-[#FCD34D] hover:bg-[#FACC15] text-black font-bold rounded-full px-14 py-7 text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700" />
                   <span className="relative flex items-center gap-3 z-10">
-                    Kurslarni ko‘rish
+                    {t.heroBtn}
                     <ChevronRight className="group-hover:translate-x-2 transition" />
                   </span>
                 </Button>
@@ -76,7 +75,7 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
           </motion.div>
         </div>
 
-        
+
       </section>
 
       {/* About Summary */}
@@ -120,7 +119,7 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
 
                 <div className="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/3] max-w-lg mx-auto lg:ml-auto border-[10px] border-white">
                   <img
-                    src="https://oilaqadriyat.uz/wp-content/uploads/2024/11/qatiylik2.webp"
+                    src="/images/section_photo.png"
                     alt="About Ilm Saroyi"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     referrerPolicy="no-referrer"
@@ -223,10 +222,16 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
               viewport={{ once: false }}
               className="lg:max-w-md text-slate-500 text-lg leading-relaxed italic border-l-4 border-slate-200 pl-8 font-medium w-full text-left self-start lg:mt-20"
             >
-              {lang === 'uz' ? 'Keng qamrovli bilimlar olamiga xush kelibsiz. Bizda siz istagan har qanday sohani professional darajada o\'rganishingiz mumkin.' : 'Добро пожаловать в мир всесторонних знаний. У нас вы можете профессионально изучить любую заинтересоющую вас сферу.'}
+              {
+                lang === 'uz'
+                  ? "Keng qamrovli bilimlar olamiga xush kelibsiz. Bizda siz istagan har qanday sohani professional darajada o'rganishingiz mumkin."
+                  : lang === 'ru'
+                    ? "Добро пожаловать в мир всесторонних знаний. У нас вы можете профессионально изучить любую интересующую вас сферу."
+                    : t.welcomeText
+              }
             </motion.div>
           </div>
-
+          Ilm yo'llari - Ilm Saroyida!
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {courseData.map((course, i) => (
               <motion.div
@@ -427,33 +432,83 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
           </motion.div>
 
           <div className="grid  lg:grid-cols-3 gap-3">
-            {[
-              { img: "/images/image2.jpg", title: "O'quv Jarayoni" },
-              { img: "/images/image3.jpg", title: "Ingliz Tili Xonasi" },
-              { img: "/images/image4.jpg", title: "Tabiy Muhit" },
-              { img: "/images/image.jpg", title: "Bilim maskani" },
-              { img: "/images/image5.jpg", title: "Adminstartor Joyi" },
-              { img: "/images/image6.jpg", title: "IT kompyuterlarimiz" }
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                className="relative group rounded-[3rem] overflow-hidden shadow-2xl border-[8px] border-white aspect-[3/4]"
-              >
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-blue-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <h4 className="text-white text-xl font-black uppercase tracking-tight">{item.title}</h4>
-                </div>
-              </motion.div>
-            ))}
+            {
+              [
+                {
+                  img: "/images/image2.jpg",
+                  title:
+                    lang === "uz"
+                      ? "O'quv Jarayoni"
+                      : lang === "ru"
+                        ? "Учебный процесс"
+                        : "Learning Process",
+                },
+                {
+                  img: "/images/image3.jpg",
+                  title:
+                    lang === "uz"
+                      ? "Ingliz Tili Xonasi"
+                      : lang === "ru"
+                        ? "Кабинет английского языка"
+                        : "English Classroom",
+                },
+                {
+                  img: "/images/image4.jpg",
+                  title:
+                    lang === "uz"
+                      ? "Tabiiy Muhit"
+                      : lang === "ru"
+                        ? "Природная среда"
+                        : "Natural Environment",
+                },
+                {
+                  img: "/images/image.jpg",
+                  title:
+                    lang === "uz"
+                      ? "Bilim maskani"
+                      : lang === "ru"
+                        ? "Центр знаний"
+                        : "Knowledge Center",
+                },
+                {
+                  img: "/images/image5.jpg",
+                  title:
+                    lang === "uz"
+                      ? "Administrator Joyi"
+                      : lang === "ru"
+                        ? "Рабочее место администратора"
+                        : "Administrator Office",
+                },
+                {
+                  img: "/images/image6.jpg",
+                  title:
+                    lang === "uz"
+                      ? "IT kompyuterlarimiz"
+                      : lang === "ru"
+                        ? "Наши IT компьютеры"
+                        : "Our IT Computers",
+                },
+              ]
+                .map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                    className="relative group rounded-[3rem] overflow-hidden shadow-2xl border-[8px] border-white aspect-[3/4]"
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-blue-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <h4 className="text-white text-xl font-black uppercase tracking-tight">{item.title}</h4>
+                    </div>
+                  </motion.div>
+                ))}
           </div>
         </div>
       </section>
