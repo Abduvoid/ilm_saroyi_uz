@@ -40,12 +40,12 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
       <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[#C5A037]/5 rounded-full blur-[150px] translate-y-1/3 -translate-x-1/4 -z-10" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-24 md:mb-40 gap-16">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-24 md:mb-40 gap-12">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="max-w-3xl"
+            className="max-w-3xl w-full"
           >
             <div className="flex items-center gap-4 mb-10">
               <div className="w-20 h-1 bg-blue-600 rounded-full" />
@@ -53,7 +53,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                 CONTACT
               </span>
             </div>
-            <h2 className="text-[90px] sm:text-[80px] lg:text-[120px] font-black uppercase leading-[0.9] tracking-[-0.04em]">
+            <h2 className="text-5xl sm:text-6xl lg:text-[120px] font-black uppercase leading-[0.9] tracking-[-0.04em] break-words">
               <span className="block text-slate-900">
                 {t.contactHeroTop}
               </span>
@@ -62,7 +62,7 @@ export default function ContactPage({ t, lang }: { t: any, lang: string }) {
                 {t.contactHeroBottom}
               </span>
             </h2>
-            <p className="text-xl sm:text-2xl text-slate-500 max-w-2xl leading-relaxed italic border-l-8 border-slate-100 pl-10">
+            <p className="text-base sm:text-xl lg:text-2xl text-slate-500 max-w-2xl leading-relaxed italic border-l-4 sm:border-l-8 border-slate-100 pl-4 sm:pl-10">
               {lang === 'uz'
                 ? "Sizning savollaringiz va takliflaringiz biz uchun juda muhim. Keling, birgalikda eng yaxshi natijaga erishamiz."
                 : lang === 'ru'
