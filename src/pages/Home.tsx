@@ -29,7 +29,7 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
         {/* Glow Effect */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#C5A037]/15 blur-[140px] rounded-full z-10" />
 
-        <div className="container mx-auto px-6 z-20 relative">
+        <div className="container mx-auto px-5 sm:px-6 z-20 relative">
 
           <motion.div
             initial="hidden"
@@ -42,17 +42,40 @@ export default function Home({ t, lang, courseData, aboutPoints, teachersData, f
           >
             {/* Badge */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-              className="inline-flex items-center gap-3 px-8 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl mb-8"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="
+    inline-flex
+    items-center
+    gap-2
+    sm:gap-3
+    px-5
+    sm:px-8
+    py-2
+    sm:py-3
+    bg-white/10
+    backdrop-blur-md
+    border
+    border-white/20
+    rounded-full
+    mb-8
+  "
             >
-              <span className="text-[#C5A037]">★</span>
-              <span className="font-semibold text-lg tracking-wider">ILM SAROYI</span>
+              <span className="text-[#C5A037] text-sm sm:text-base">
+                ★
+              </span>
+
+              <span className="font-semibold text-sm sm:text-lg tracking-wider text-white">
+                ILM SAROYI
+              </span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1
               variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[82px] font-black leading-[1.05] tracking-tighter text-white mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[82px] font-black leading-[1.05] tracking-tighter text-white mb-6"
             >
               {t.heroMainTitle}<br />
               <span className="text-[#FCD34D] drop-shadow-xl">{t.heroHighlight}</span> {t.heroEnd}<br />
