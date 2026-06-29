@@ -1,28 +1,90 @@
 import { motion } from 'motion/react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Clock, Users, Award } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function CoursePage({ courseData, lang }: { courseData: any[], lang: string }) {
-  const { id } = useParams();
-  const course = courseData.find(c => c.id === id);
+export default function CoursePage({
+  courseData,
+  lang,
+  t
+}: {
+  courseData: any[],
+  lang: string,
+  t: any
+}) {
+  // 1. URL dan kurs id yoki slug ini olamiz
+  const { id } = useParams<{ id: string }>();
 
+  // 2. courseData ichidan shu ID ga mos keladigan kursni topamiz
+  // (Agar sizda id emas, slug bo'lsa, c.slug === id deb yozishingiz mumkin)
+  const course = courseData?.find((c) => c.id === id || c.slug === id);
+
+  // 3. Agar kurs topilmasa, xatolik bermasligi uchun tekshirish
   if (!course) {
     return (
-      <div className="pt-32 sm:pt-40 pb-20 text-center px-6">
-        <h1 className="text-2xl sm:text-4xl font-bold mb-8">Kurs topilmadi</h1>
-        <Link to="/courses">
-          <Button className="rounded-xl">Barcha kurslar</Button>
-        </Link>
+      <div className="pt-32 text-center text-slate-600">
+        {lang === 'uz' ? 'Kurs topilmadi' : lang === 'ru' ? 'Курс не найден' : 'Course not found'}
       </div>
     );
   }
 
   const courseFeatures = [
-    { title: lang === 'uz' ? "Sertifikat" : "Сертификат", desc: lang === 'uz' ? "Kursni tamomlagach rasmiy sertifikat beriladi" : "Официальный сертификат по окончании курса" },
-    { title: lang === 'uz' ? "Amaliyot" : "Практика", desc: lang === 'uz' ? "Real loyihalar ustida ishlash imkoniyati" : "Возможность работы над реальными проектами" },
-    { title: lang === 'uz' ? "Mentorlik" : "Менторство", desc: lang === 'uz' ? "Tajribali ustozlardan doimiy yordam" : "Постоянная помощь от опытных наставников" },
-    { title: lang === 'uz' ? "Ishga joylashish" : "Трудоустройство", desc: lang === 'uz' ? "Eng yaxshi talabalarga ish topishda ko'mak" : "Помощь в поиске работы лучшим студентам" }
+    {
+      title:
+        lang === "uz"
+          ? "Sertifikat"
+          : lang === "ru"
+          ? "Сертификат"
+          : "Certificate",
+      desc:
+        lang === "uz"
+          ? "Kursni tamomlagach rasmiy sertifikat beriladi"
+          : lang === "ru"
+          ? "Официальный сертификат по окончании курса"
+          : "Official certificate after course completion"
+    },
+    {
+      title:
+        lang === "uz"
+          ? "Amaliyot"
+          : lang === "ru"
+          ? "Практика"
+          : "Practice",
+      desc:
+        lang === "uz"
+          ? "Real loyihalar ustida ishlash imkoniyati"
+          : lang === "ru"
+          ? "Возможность работы над реальными проектами"
+          : "Work on real projects"
+    },
+    {
+      title:
+        lang === "uz"
+          ? "Mentorlik"
+          : lang === "ru"
+          ? "Менторство"
+          : "Mentorship",
+      desc:
+        lang === "uz"
+          ? "Tajribali ustozlardan doimiy yordam"
+          : lang === "ru"
+          ? "Постоянная помощь опытных наставников"
+          : "Constant support from experienced mentors"
+    },
+    {
+      title:
+        lang === "uz"
+          ? "Ishga joylashish"
+          : lang === "ru"
+          ? "Трудоустройство"
+          : "Employment",
+      desc:
+        lang === "uz"
+          ? "Eng yaxshi talabalarga ish topishda ko'mak"
+          : lang === "ru"
+          ? "Помощь лучшим студентам в трудоустройстве"
+          : "Employment assistance for top students"
+    }
   ];
 
   return (
@@ -48,7 +110,7 @@ export default function CoursePage({ courseData, lang }: { courseData: any[], la
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.5 }}
           >
-            <div className={`inline-block p-2.5 sm:p-4 rounded-xl sm:rounded-2xl ${course.color} text-white shadow-xl mb-4 sm:mb-8`}>
+            <div className={`inline-block p-2.5 sm:p-4 rounded-xl sm:rounded-2xl ${course.color || 'bg-blue-600'} text-white shadow-xl mb-4 sm:mb-8`}>
               <div className="scale-90 sm:scale-100">{course.icon}</div>
             </div>
             <h1 className="text-2xl sm:text-4xl md:text-7xl font-heading font-bold text-slate-900 mb-4 sm:mb-8 leading-tight">
@@ -65,7 +127,7 @@ export default function CoursePage({ courseData, lang }: { courseData: any[], la
                 </div>
                 <div>
                   <div className="text-[10px] md:text-sm text-slate-400 uppercase font-bold tracking-wider">Davomiyligi</div>
-                  <div className="text-lg sm:text-2xl font-bold text-slate-800">Chegaralanmagan</div>
+                  <div className="text-lg sm:text-2xl font-bold text-slate-800">{t.courseUnlimited}</div>
                 </div>
               </div>
               <div className="p-4 sm:p-8 bg-white rounded-xl sm:rounded-[2.5rem] shadow-xl border border-blue-50 flex items-center gap-3 sm:gap-6 text-left">
@@ -73,15 +135,15 @@ export default function CoursePage({ courseData, lang }: { courseData: any[], la
                   <Users className="w-5 h-5 sm:w-8 sm:h-8" />
                 </div>
                 <div>
-                  <div className="text-[10px] md:text-sm text-slate-400 uppercase font-bold tracking-wider">Guruhda</div>
-                  <div className="text-lg sm:text-2xl font-bold text-slate-800">10-12 kishi</div>
+                  <div className="text-[10px] md:text-sm text-slate-400 uppercase font-bold tracking-wider">{t.courseGroup}</div>
+                  <div className="text-lg sm:text-2xl font-bold text-slate-800">{t.courseGroupCount}</div>
                 </div>
               </div>
             </div>
 
             <Link to="/contact">
               <Button size="lg" className="w-full md:w-auto px-8 sm:px-16 py-5 sm:py-10 text-lg sm:text-2xl rounded-full bg-blue-600 hover:bg-blue-700 shadow-2xl shadow-blue-200 transition-all hover:scale-105 active:scale-95 font-black">
-                KURSGA YOZILISH
+                {t.enrollCourse}
               </Button>
             </Link>
           </motion.div>
@@ -133,8 +195,8 @@ export default function CoursePage({ courseData, lang }: { courseData: any[], la
           className="bg-slate-900 rounded-2xl sm:rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-10 md:p-20 text-white relative overflow-hidden"
         >
           <div className="relative z-10">
-            <h2 className="text-xl sm:text-3xl md:text-5xl font-bold mb-8 md:mb-12">Kurs dasturi</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-bold mb-8 md:mb-12"> {t.courseProgram}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8"> 
               {course.curriculum ? (
                 course.curriculum.map((stage: any) => (
                   <div key={stage.month} className="p-5 sm:p-8 bg-white/5 rounded-xl sm:rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">

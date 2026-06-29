@@ -43,6 +43,7 @@ import ContactPage from './pages/Contact';
 const Logo = ({ className = "", light = false, footer = false }: { className?: string; light?: boolean; footer?: boolean }) => {
   const textColor = light || footer ? 'text-white' : 'text-[#002B5B]';
   const goldColor = '#C5A037';
+  
 
   return (
     <div className={`flex flex-col items-center ${className} select-none`}>
@@ -91,6 +92,8 @@ const Logo = ({ className = "", light = false, footer = false }: { className?: s
   );
 };
 
+
+
 // --- Translations ---
 
 const translations = {
@@ -100,7 +103,13 @@ const translations = {
     courses: "Kurslar",
     contact: "Bog'lanish",
     heroTitle: "Ilm Saroyi",
+    courseGroup: "Guruh",
+    courseProgram: "Kurs dasturi",
     heroMainTitle: "Farzandingizning",
+    courseUnlimited: "Chegaralanmagan",
+    courseGroupCount: "10-12 kishi",
+    enrollCourse: "Kursga yozilish",
+    kursDastur: "Kurs Davomiyligi",
     contactHeroTop: "Biz bilan",
     contactHeroBottom: "Bog'laning",
     heroHighlight: "KELAJAGI",
@@ -151,6 +160,12 @@ const translations = {
     courses: "Курсы",
     contact: "Контакты",
     heroTitle: "Ilm Saroyi",
+    courseGroup: "Группа",
+    courseProgram: "Программа курса",
+    courseUnlimited: "Неограниченно",
+    courseGroupCount: "10-12 человек",
+    enrollCourse: "Записаться",
+    kursDastur: "Программа курса",
     contactHeroTop: "Свяжитесь с",
     contactHeroBottom: "нами",
     heroMainTitle: "Будущее вашего ребёнка",
@@ -202,6 +217,12 @@ const translations = {
     courses: "Courses",
     contact: "Contact",
     heroTitle: "Ilm Saroyi",
+    courseGroup: "Group",
+    courseProgram: "Course Program",
+    courseUnlimited: "Unlimited",
+    courseGroupCount: "10-12 students",
+    enrollCourse: "Enroll Now",
+    kursDastur: "Course program",
     contactHeroTop: "Get in",
     contactHeroBottom: "Touch",
     heroMainTitle: "Your Child's",
@@ -692,7 +713,7 @@ const teachersData = [
         <Route path="/about" element={<AboutPage t={t} aboutPoints={aboutPoints} lang={lang} />} />
         <Route path="/courses" element={<CoursesPage courseData={courseData} lang={lang} />} />
         <Route path="/contact" element={<ContactPage t={t} lang={lang} />} />
-        <Route path="/courses/:id" element={<CoursePage courseData={courseData} lang={lang} />} />
+        <Route path="/courses/:id" element={<CoursePage courseData={courseData} lang={lang}  t={t} />} />
       </Routes>
 
       {/* Footer */}
